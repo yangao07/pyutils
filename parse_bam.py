@@ -199,17 +199,17 @@ def get_error_from_Cigar(cigartuples=[], full_query_seq='', align_ref_seq='', re
     return mis, ins, dele
 
 
-def get_align_block(cigartuples=[], ref_start=0):
-    align_block = []
+def get_exon_block(tid, is_rev, cigartuples=[], ref_start=0):
+    exon_block = []
     start = ref_start
     end = ref_start - 1
     for tuples in cigartuples:
         if tuples[0] == BAM_CMATCH or tuples[0] == BAM_CDEL:
             end += tuples[1]
         elif tuples[0] == BAM_CREF_SKIP:
-            align_block.append((start, end))
+            exon_block.append((tid, is_rev, start, end))
             start = end + tuples[1] + 1
             end = start -1
-    align_block.append((start, end))
+    exon_block.append((tid, is_rev, start, end))
 
-    return align_block
+    return exon_block
