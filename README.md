@@ -1,1 +1,1 @@
-# pyParseBAM
+# pyUtils: useful python utilites scripts
