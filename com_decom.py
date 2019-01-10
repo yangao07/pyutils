@@ -12,14 +12,14 @@ com_cmd = {'tar.gz': 'tar zcvf',
            'bz2': 'bzip2 -z',
            'zip': 'zip',
            'rar': 'rar a'}
-decom_cmd = {'tar.gz': 'tar zxvf',
-             'tar.tgz': 'tar zxvf',
-             'tar.gz2': 'tar jxvf ',
-             'tar': 'tar xvf',
-             'gz': 'gzip -d',
-             'bz2': 'bzip2 -d',
-             'zip': 'unzip',
-             'rar': 'rar x'}
+decom_cmd = [('tar.gz', 'tar zxvf'),
+             ('tar.tgz', 'tar zxvf'),
+             ('tar.bz2', 'tar jxvf '),
+             ('tar', 'tar xvf'),
+             ('gz', 'gzip -d'),
+             ('bz2', 'bzip2 -d'),
+             ('zip', 'unzip'),
+             ('rar', 'rar x')]
 
 
 def compress(in_folder='', type='tar.gz'):
@@ -31,9 +31,9 @@ def compress(in_folder='', type='tar.gz'):
         sys.stderr.write("Unknown compressed type: {}.\n".format(type))
 
 def decompress(in_file=''):
-    for type in decom_cmd:
-        if in_file.endswith('.'+type):
-            os.system('{} {}'.format(decom_cmd[type], in_file))
+    for de_cmd in decom_cmd:
+        if in_file.endswith('.'+de_cmd[0]):
+            os.system('{} {}'.format(de_cmd[1], in_file))
             return
     sys.stderr.write("Unknown compressed type: {}.\n".format(type))
 
@@ -44,7 +44,7 @@ def parser_argv():
     parser.add_argument("in_file", metavar='file/folder', type=str,
                         help='File to decompress or folder to compress.')
     parser.add_argument("--type", type=str, default='tar.gz',
-                        choices=['tar.gz', 'tar.tgz', 'tar.gz2', 'tar', 'gz', 'bz2', 'zip', 'rar'],
+                        choices=['tar.gz', 'tar.tgz', 'tar.bz2', 'tar', 'gz', 'bz2', 'zip', 'rar'],
                         help='Compressed file type.')
     return parser.parse_args()
 
