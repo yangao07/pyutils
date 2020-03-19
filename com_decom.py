@@ -3,6 +3,7 @@ import os
 import argparse
 import re
 import sys
+import utils as ut
 
 com_cmd = {'tar.gz': 'tar zcvf',
            'tar.tgz': 'tar zcvf',
@@ -24,16 +25,16 @@ decom_cmd = [('tar.gz', 'tar zxvf'),
 
 def compress(in_folder='', type='tar.gz'):
     if type == 'gz':
-        os.system('{} {}'.format('gzip', in_folder))
+        ut.exec_cmd_err(type, '{} {}'.format('gzip', in_folder))
     if type in com_cmd:
-        os.system('{} {}.{} {}'.format(com_cmd[type], in_folder, type, in_folder))
+        ut.exec_cmd_err(type, '{} {}.{} {}'.format(com_cmd[type], in_folder, type, in_folder))
     else:
         sys.stderr.write("Unknown compressed type: {}.\n".format(type))
 
 def decompress(in_file=''):
     for de_cmd in decom_cmd:
         if in_file.endswith('.'+de_cmd[0]):
-            os.system('{} {}'.format(de_cmd[1], in_file))
+            ut.exec_cmd_err(de_cmd[0], '{} {}'.format(de_cmd[1], in_file))
             return
     sys.stderr.write("Unknown compressed type: {}.\n".format(type))
 
