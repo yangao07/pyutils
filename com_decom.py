@@ -6,6 +6,7 @@ import sys
 import utils as ut
 
 com_cmd = {'tar.gz': 'tar zcvf',
+           'tar.xz': 'tar -cJf',
            'tar.tgz': 'tar zcvf',
            'tar.bz2': 'tar jcvf',
            'tar': 'tar cvf',
@@ -14,6 +15,7 @@ com_cmd = {'tar.gz': 'tar zcvf',
            'zip': 'zip',
            'rar': 'rar a'}
 decom_cmd = [('tar.gz', 'tar zxvf'),
+             ('tar.xz', 'tar -xf'),
              ('tar.tgz', 'tar zxvf'),
              ('tar.bz2', 'tar jxvf '),
              ('tar', 'tar xvf'),
@@ -45,7 +47,7 @@ def parser_argv():
     parser.add_argument("in_file", metavar='file/folder', type=str,
                         help='File to decompress or folder to compress.')
     parser.add_argument("--type", type=str, default='tar.gz',
-                        choices=['tar.gz', 'tar.tgz', 'tar.bz2', 'tar', 'gz', 'bz2', 'zip', 'rar'],
+                        choices=['tar.gz', 'tar.xz', 'tar.tgz', 'tar.bz2', 'tar', 'gz', 'bz2', 'zip', 'rar'],
                         help='Compressed file type.')
     return parser.parse_args()
 
