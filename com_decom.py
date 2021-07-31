@@ -22,7 +22,8 @@ decom_cmd = [('tar.gz', 'tar zxvf'),
              ('gz', 'gzip -d'),
              ('bz2', 'bzip2 -d'),
              ('zip', 'unzip'),
-             ('rar', 'rar x')]
+             ('rar', 'rar x'),
+             ('7z', '7z x')]
 
 
 def compress(in_folder='', type='tar.gz'):
