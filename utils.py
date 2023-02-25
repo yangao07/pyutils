@@ -19,6 +19,11 @@ def fatal_format_time(header, str):
     err_format_time(header, str)
     sys.exit(1)
 
+def exec_cmd_err(header, cmd):
+    format_time(sys.stderr, header, cmd)
+    ret = os.system(cmd)
+    if ret != 0:
+        fatal_format_time(header, 'Error: ' + cmd)
 
 def exec_cmd(fp, header, cmd):
     format_time(fp, header, cmd)
